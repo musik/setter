@@ -40,6 +40,7 @@ gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 
 gem 'wash_out'
 gem 'savon'
+gem 'typhoeus'
 group :development do
   gem 'capistrano'
   #gem 'capistrano-ext'

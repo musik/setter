@@ -1,15 +1,39 @@
 module WashOutExt
   extend ActiveSupport::Concern
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
   module ClassMethods
+    attr_accessor :actions
+    def load_wash_actions
+      @action ||=
+        begin
+          file = File.read("#{Rails.root}/config/tz.yml").gsub('!s','!ruby/symbol')
+          actions = YAML.load(file).recursive_symbolize_keys!
+          actions.each do |k,v|
+            v[:return] ||= {}
+            v[:return] = {
+              :CmdState=> :integer,
+              :CmdErrorLevel=> :string,
+              :CmdTips=>:string
+            }.merge v[:return]
+            if v[:return].has_key? :CmdXml
+              v[:return][:CmdXml] = eval(v[:return][:CmdXml])
+            end
+          end
+          actions
+        end
+    end
     def soap_load_actions
-      #actions = Rails.env.production? ? WASHACTIONS : load_wash_actions
-      actions = WASHACTIONS
+      actions = Rails.env.production? ? WASHACTIONS : load_wash_actions
       actions.each do |k,v|
-        v[:return] = {:CmdState=> :integer} if !v.has_key? :return
         soap_action k.to_s,v
       end
     end
   end
+end
+class WashOutExtIns
+  include WashOutExt
 end
 class Hash
   def recursive_symbolize_keys!

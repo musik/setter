@@ -27,9 +27,13 @@ company_add:
     cpLogo: !s string
     cpBanner: !s string
     cpAboutPic: !s string
+  return:
+    CmdXml: Account
 company_details:
   args:
     cpID: !s string
+  return: 
+    CmdXml: Company
 company_list:
   args:
     PageIndex: !s string

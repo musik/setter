@@ -324,6 +324,9 @@ GEM
       eventmachine (>= 0.12.8)
       http_parser.rb (~> 0.5.1)
       simple_oauth (~> 0.1.4)
+    typhoeus (0.4.2)
+      ffi (~> 1.0)
+      mime-types (~> 1.18)
     tzinfo (0.3.37)
     uglifier (2.0.1)
       execjs (>= 0.3.0)
@@ -387,6 +390,7 @@ DEPENDENCIES
   simple_form (>= 2.1.0)
   sqlite3
   thin (>= 1.5.0)
+  typhoeus
   uglifier (>= 1.0.3)
   unicorn (>= 4.3.1)
   wash_out
