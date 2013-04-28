@@ -39,3 +39,12 @@ gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 
 gem 'wash_out'
 gem 'savon'
+group :development do
+  gem 'capistrano'
+  #gem 'capistrano-ext'
+  gem 'capistrano-recipes'
+  gem 'capistrano-helpers'
+  #gem 'rvm-capistrano'
+  gem 'capistrano-unicorn',:git=>'git://github.com/sosedoff/capistrano-unicorn.git'
+  gem 'capistrano-resque'
+end
