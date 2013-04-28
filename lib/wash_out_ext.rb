@@ -6,7 +6,7 @@ module WashOutExt
       actions = WASHACTIONS
       actions.each do |k,v|
         v[:return] = {:CmdState=> :integer} if !v.has_key? :return
-        soap_action k,v
+        soap_action k.to_s,v
       end
     end
   end
