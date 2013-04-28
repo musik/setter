@@ -1,0 +1,26 @@
+参数值：
+    <XMLData>
+      <bsID>商盟通商机编号</bsID>
+      <bsCompanyID>商盟通公司编号</bsCompanyID>
+      <bsTitle>商机标题</bsTitle>
+      <bsType>供求信息类型（1求购,2供应,3合作,4合作,5二手设备,6租赁,7招标）</bsType>
+      <bsIndustry>行业编号/此处为B2B终端网站的行业编号</bsIndustry>
+      <bsPeriod>供求信息有效期（天数）</bsPeriod>
+      <bsKey>关键词，用英文","隔开</bsKey>
+      <bsPicUrl>商机大图地址</bsPicUrl>
+      <bsSPicUrl>商机小图地址</bsSPicUrl>
+      <bsPrice>价格</bsPrice>
+      <bsNumber>供求数量（0不限）</bsNumber>
+      <bsContent>商机详情 </bsContent>
+      <bsAddDate>添加时间</bsAddDate>
+      <bsEditDate>最后修改时间</bsEditDate>    
+    </XMLData
+
+
+返回值：
+ 
+	<XMLData>
+		<CmdState>操作状态 1为成功 2为失败<CmdState>
+		<CmdErrorLevel>错误级别</CmdErrorLevel>
+                <CmdTips>操作提示<CmdTips>
+	<XMLData>

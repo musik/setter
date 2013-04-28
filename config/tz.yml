@@ -1,0 +1,81 @@
+company_add:
+  args:
+    cpID: !s string
+    cpName: !s string
+    cpShortName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpAddress: !s string
+    cpPost: !s string
+    cpTel: !s string
+    cpFax: !s string
+    cpSite: !s string
+    cpEmail: !s string
+    cpAbout: !s string
+    cpExtend: !s string
+    cpScore: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpMember: !s string
+    cpMasterBreed: !s string
+    cpMasterProduct: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+    cpPhone: !s string
+    cpLogo: !s string
+    cpBanner: !s string
+    cpAboutPic: !s string
+company_details:
+  args:
+    cpID: !s string
+company_list:
+  args:
+    PageIndex: !s string
+    cpID: !s string
+    cpName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+company_modify:
+  args:
+    cpID: !s string
+    cpName: !s string
+    cpShortName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpAddress: !s string
+    cpPost: !s string
+    cpTel: !s string
+    cpFax: !s string
+    cpSite: !s string
+    cpEmail: !s string
+    cpAbout: !s string
+    cpExtend: !s string
+    cpScore: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpMember: !s string
+    cpMasterBreed: !s string
+    cpMasterProduct: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+    cpPhone: !s string
+    cpCustomerServiceSmallIcons: !s string
+    cpCustomerServiceSmallJS: !s string
+    cpNoReason: !s string
+    cpLogo: !s string
+    cpBanner: !s string
+    cpAboutPic: !s string
+company_modify_status:
+  args:
+    cpID: !s string
+    cpStatus: !s string

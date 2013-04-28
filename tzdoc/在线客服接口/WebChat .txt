@@ -1,0 +1,21 @@
+public string WebChatAdd(string strToken, string strXmlKeyValue);
+
+public string WebChatModify(string strToken, string strXmlKeyValue);
+
+XML文档
+
+参数值：
+    <XMLData>
+      <wcCompanyID>商盟通商机编号</wsCompanyID>
+      <wcSingleJS>单个个客服显示(默认用于列表页面)</wcSingleJS>
+      <wsListJS>全部客服显示(默认用于详细页面)</wsListJS>   
+    </XMLData>
+
+
+返回值：
+ 
+	<XMLData>
+		<CmdState>操作状态 1为成功 2为失败<CmdState>
+		<CmdErrorLevel>错误级别</CmdErrorLevel>
+                <CmdTips>操作提示<CmdTips>               
+	<XMLData>

@@ -1,0 +1,2 @@
+module YunHelper
+end

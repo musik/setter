@@ -1,0 +1,24 @@
+参数值：
+    <XMLData>
+      <nsID>软文编号</nsID>
+      <nsTypeID>软文分类编号</nsTypeID>
+      <nsTitle>软文标题</nsTitle>
+      <nsKey>软文关键字</nsKey>
+      <nsAutor>软文作者</nsAutor>
+      <nsFrom>软文来源</nsFrom>
+      <nsSummary>软件概要</nsSummary>
+      <nsContent>软文内容</nsContent>
+      <nsState>软文状态</nsState>
+      <nsAddDate>软文添加时间</nsAddDate>
+      <nsEditDate>软文最后编辑时间</nsEditDate>
+      <nsCompanyID>软文对应的公司编号</nsCompanyID>  
+    </XMLData
+
+
+返回值：
+ 
+	<XMLData>
+		<CmdState>操作状态 1为成功 2为失败<CmdState>
+		<CmdErrorLevel>错误级别</CmdErrorLevel>
+                <CmdTips>操作提示<CmdTips>
+	<XMLData>

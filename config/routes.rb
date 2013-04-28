@@ -1,8 +1,7 @@
 Setter::Application.routes.draw do
-  authenticated :user do
-    root :to => 'home#index'
-  end
+  wash_out :yun
+
   root :to => "home#index"
-  devise_for :users
-  resources :users
+  #devise_for :users
+  #resources :users
 end

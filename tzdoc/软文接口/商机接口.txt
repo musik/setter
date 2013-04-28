@@ -1,0 +1,17 @@
+
+        public string BuySellAdd(string strToken, string strXmlKeyValue)
+
+
+        public string BuySellModify(string strToken, string strXmlKeyValue)
+        
+
+        public string BuySellModifyStatus(string strToken, string strXmlKeyValue)
+        
+
+        public string BuySellList(string strToken, string strXmlKeyValue)
+
+
+	public string BuySellDetails(string strToken, string strXmlKeyValue)   
+     
+
+        public string BuySellDelete(string strToken, string strXmlKeyValue)

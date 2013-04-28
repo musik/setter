@@ -1,0 +1,20 @@
+后台WebService接口：
+
+参数值：
+    <XMLData>
+      <userName>用户登录名称</bsCompanyID>
+      <userPWD>用户登录密码</bsTitle>
+    </XMLData>
+
+
+返回值：
+ 
+	<XMLData>
+		<CmdState>操作状态 1为成功 2为失败<CmdState>
+		<CmdErrorLevel>错误级别</CmdErrorLevel>
+                <CmdTips>操作提示<CmdTips>                
+	<XMLData>
+
+
+前端页面跳转：
+	ToSmtLogin.aspx(asp,php,js)?LoginToken=MD5 32 大写加密（Token+用户名+密码）
