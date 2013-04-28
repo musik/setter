@@ -27,6 +27,10 @@ class YunController < ApplicationController
   end
   def company_modify_status
   end
+  soap_action "testaction",
+      :args => Company
+  def testaction
+  end
   before_filter :dump_parameters,:remote_post,:except=>%(_generate_wsdl)
   private
   def remote_post
