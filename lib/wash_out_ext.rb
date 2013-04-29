@@ -20,6 +20,9 @@ module WashOutExt
             if v[:return].has_key? :CmdXml
               v[:return][:CmdXml] = eval(v[:return][:CmdXml])
             end
+            if v[:args].is_a? String
+              v[:args] = eval(v[:args]).send :wash_out_param_map
+            end
           end
           actions
         end

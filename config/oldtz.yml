@@ -1,0 +1,143 @@
+company_add:
+  args:
+    cpID: !s string
+    cpName: !s string
+    cpShortName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpAddress: !s string
+    cpPost: !s string
+    cpTel: !s string
+    cpFax: !s string
+    cpSite: !s string
+    cpEmail: !s string
+    cpAbout: !s string
+    cpExtend: !s string
+    cpScore: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpMember: !s string
+    cpMasterBreed: !s string
+    cpMasterProduct: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+    cpPhone: !s string
+    cpLogo: !s string
+    cpBanner: !s string
+    cpAboutPic: !s string
+  return:
+    CmdXml: Account
+company_details:
+  args:
+    cpID: !s string
+  return: 
+    CmdXml: Company
+company_list:
+  args:
+    PageIndex: !s string
+    cpID: !s string
+    cpName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+company_modify:
+  args:
+    cpID: !s string
+    cpName: !s string
+    cpShortName: !s string
+    cpIndustry: !s string
+    cpAddressID: !s string
+    cpAddress: !s string
+    cpPost: !s string
+    cpTel: !s string
+    cpFax: !s string
+    cpSite: !s string
+    cpEmail: !s string
+    cpAbout: !s string
+    cpExtend: !s string
+    cpScore: !s string
+    cpType: !s string
+    cpOpDate: !s string
+    cpUnionEndDate: !s string
+    cpState: !s string
+    cpMember: !s string
+    cpMasterBreed: !s string
+    cpMasterProduct: !s string
+    cpCorporation: !s string
+    cpMode: !s string
+    cpPhone: !s string
+    cpCustomerServiceSmallIcons: !s string
+    cpCustomerServiceSmallJS: !s string
+    cpNoReason: !s string
+    cpLogo: !s string
+    cpBanner: !s string
+    cpAboutPic: !s string
+company_modify_status:
+  args:
+    cpID: !s string
+    cpStatus: !s string
+buy_sell_add:
+  args:
+    bsID: !s string
+    bsCompanyID: !s string
+    bsTitle: !s string
+    bsType: !s string
+    bsIndustry: !s string
+    bsPeriod: !s string
+    bsKey: !s string
+    bsPicUrl: !s string
+    bsSPicUrl: !s string
+    bsPrice: !s string
+    bsNumber: !s string
+    bsContent: !s string
+    bsAddDate: !s string
+    bsEditDate: !s string
+  return:
+    CmdXml: LeadUrl
+buy_sell_delete:
+  args:
+    bsID: !s string
+buy_sell_details:
+  args:
+    bsID: !s string
+  return:
+    CmdXml: Lead
+buy_sell_list:
+  args:
+    PageIndex: !s string
+    bsID: !s string
+    bsCompanyID: !s string
+    bsTitle: !s string
+    bsType: !s string
+    bsIndustry: !s string
+buy_sell_modify:
+  args:
+    bsID: !s string
+    bsCompanyID: !s string
+    bsTitle: !s string
+    bsType: !s string
+    bsIndustry: !s string
+    bsPeriod: !s string
+    bsKey: !s string
+    bsPicUrl: !s string
+    bsSPicUrl: !s string
+    bsPrice: !s string
+    bsNumber: !s string
+    bsContent: !s string
+    bsAddDate: !s string
+    bsEditDate: !s string
+buy_sell_modify_status:
+  args:
+    bsID: !s string
+    bsState: !s string
+
+    
+
+    
