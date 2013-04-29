@@ -33,12 +33,17 @@ describe YunController do
       cpBanner:"公司Banner横幅",
       cpAboutPic:"公司相关图片，用于公司简介",
     }
-    client = Savon.client :wsdl=>"http://localhost:3000/yun/wsdl"
-    #response = client.call(:testaction,message: @attr)
-    response = client.call(:company_add,message: @attr)
-    pp response.body#[:company_add_response][:cms_state]
-    #response = client.call(:company_details,message: {:cpId=>123456})
+    #client = Savon.client :wsdl=>"http://localhost:3000/yun/wsdl"
+    #response = client.call(:company_add,message: @attr)
     #pp response.body#[:company_add_response][:cms_state]
   end
+  it "company list" do
+    #@attr = {
+      #cpIndustry: 105
+    #}
+    #client = Savon.client :wsdl=>"http://localhost:3000/yun/wsdl"
+    #response = client.call(:company_list,message: @attr)
+    #pp response.body#[:company_add_response][:cms_state]
 
+  end
 end

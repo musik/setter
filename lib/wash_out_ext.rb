@@ -12,23 +12,35 @@ module WashOutExt
           actions = YAML.load(file).recursive_symbolize_keys!
           actions.each do |k,v|
             v[:return] ||= {}
+            v[:return].each do |rk,val|
+              v[:return][rk] = parse_return(val)
+            end
             v[:return] = {
               :CmdState=> :integer,
               :CmdErrorLevel=> :string,
               :CmdTips=>:string
             }.merge v[:return]
-            if v[:return].has_key? :CmdXml
-              v[:return][:CmdXml] = eval(v[:return][:CmdXml])
-            end
             if v[:args].is_a? String
               v[:args] = eval(v[:args]).send :wash_out_param_map
             end
           end
+          #pp actions
           actions
         end
     end
+    def parse_return val
+      return nil if val.nil?
+      if val.is_a? String
+        eval(val)
+      elsif val.is_a? Array
+        val.collect{|v|
+          eval(v) if v.is_a? String
+        }
+      end
+    end
     def soap_load_actions
       actions = Rails.env.production? ? WASHACTIONS : load_wash_actions
+      #actions = load_wash_actions
       actions.each do |k,v|
         soap_action k.to_s,v
       end

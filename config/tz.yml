@@ -20,6 +20,9 @@ company_list:
     cpState: !s string
     cpCorporation: !s string
     cpMode: !s string
+  return:
+    CmdXml: [ CompanyInList ]
+    CmdPage: Page
 company_modify:
   args: Company
 company_modify_status:
@@ -46,6 +49,9 @@ buy_sell_list:
     bsTitle: !s string
     bsType: !s string
     bsIndustry: !s string
+  return:
+    CmdXml: [ LeadInList ]
+    CmdPage: Page
 buy_sell_modify:
   args: Lead
 buy_sell_modify_status:
