@@ -7,7 +7,7 @@ class YunController < ApplicationController
     @results = {
       :CmdState=>1,
       :CmdXml=>{
-        :CmdCompanyID => 123456,
+        :CmdCompanyUrl => @response.body.encode 'UTF-8','GBK',
       }
     }
     render :soap=>@results
@@ -36,9 +36,9 @@ class YunController < ApplicationController
   def remote_post
     url = "http://www.ynshangji.com/test.asp"
     #url = "http://localhost/wsdl.php"
-    response = Typhoeus::Request.post "#{url}?action=#{action_name}",:params=> params
-    Rails.logger.debug response.inspect
-    logger.debug response.body.encode 'UTF-8','GBK'
+    @response = Typhoeus::Request.post "#{url}?action=#{action_name}",:params=> params
+    Rails.logger.debug @response.inspect
+    logger.debug @response.body.encode 'UTF-8','GBK'
   end
   def dump_parameters
     Rails.logger.debug params.inspect
