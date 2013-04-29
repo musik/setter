@@ -36,8 +36,9 @@ class YunController < ApplicationController
   def remote_post
     url = "http://www.ynshangji.com/test.asp"
     #url = "http://localhost/wsdl.php"
-    response = Typhoeus::Request.post "#{url}?action=#{action_name}",:params=>{params: params}
+    response = Typhoeus::Request.post "#{url}?action=#{action_name}",:params=> params
     Rails.logger.debug response.inspect
+    logger.debug response.body.encode 'UTF-8','GBK'
   end
   def dump_parameters
     Rails.logger.debug params.inspect
