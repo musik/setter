@@ -1,0 +1,13 @@
+- company_add
+- company_modify
+- company_modify_status
+- company_list
+- company_details
+- BuySellAdd
+- BuySellModify
+- BuySellModifyStatus
+- BuySellList
+- BuySellDetails
+- BuySellDelete
+- WebChatAdd
+- WebChatModify

@@ -38,6 +38,9 @@ module WashOutExt
         }
       end
     end
+    def load config_file
+      @actions = YAML.load_file config_file
+    end
     def soap_load_actions
       actions = Rails.env.production? ? WASHACTIONS : load_wash_actions
       #actions = load_wash_actions
@@ -58,3 +61,4 @@ class Hash
     self
   end
 end
+#WashOutExt.load "#{Rails.root}/config/tz_actions.yml"
