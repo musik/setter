@@ -2,7 +2,7 @@
 class YunController < ApplicationController
   include WashOut::SOAP
   include WashOutExt
-  soap_load_actions
+  #soap_load_actions
   def action_missing name
     #logger.debug name
     render_soap
