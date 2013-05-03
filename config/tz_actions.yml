@@ -1,8 +1,8 @@
-- company_add
-- company_modify
-- company_modify_status
-- company_list
-- company_details
+- CompanyAdd
+- CompanyModify
+- CompanyModifyStatus
+- CompanyList
+- CompanyDetails
 - BuySellAdd
 - BuySellModify
 - BuySellModifyStatus

@@ -11,9 +11,9 @@ describe ApiController do
   end
   it "company_add" do
     xml = File.read("#{Rails.root}/db/test/company_add_args.xml").encode("UTF-8",'GBK')
-    #client = Savon.client :wsdl=>"http://localhost:2999/api/wsdl"
-    #response = client.call(:company_add,message: args(xml))
-    #pp response.body#[:company_add_response][:cms_state]
+    client = Savon.client :wsdl=>"http://localhost:2999/api/wsdl"
+    response = client.call(:company_add,message: args(xml))
+    pp response.body#[:company_add_response][:cms_state]
   end
   it "company list" do
     #@attr = {

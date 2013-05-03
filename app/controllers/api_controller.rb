@@ -33,8 +33,8 @@ class ApiController < ApplicationController
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
       @xml_data = xml 
     else
-      logger.debug @response.inspect
-      @xml_data = error_output(@response.code,'请求失败 #{@response.curl_error_message}')
+      #logger.debug @response.inspect
+      @xml_data = error_output(@response.code,"请求失败 #{@response.curl_error_message}")
     end
     #logger.info @xml_data
   end
