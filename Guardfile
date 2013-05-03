@@ -13,7 +13,7 @@ end
   #watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
 #end
 
-guard 'rails' do
+guard 'rails',:port=>2999 do
   watch('Gemfile.lock')
   #watch(%r{^(config|lib)/.*})
   watch('config/tz.yml')

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<XMLData>
+   <CmdState>1</CmdState>
+   <CmdErrorLevel></CmdErrorLevel>
+   <CmdTips></CmdTips>
+   <CmdXml>
+      <CmdCompanyID>123</CmdCompanyID>
+      <CmdCompanyUrl>http://test.ynshangji.com</CmdCompanyUrl>
+      <CmdUserID>123</CmdUserID>
+      <CmdUserName>测试用户</CmdUserName>
+      <CmdUserPwd>e10adc3949ba59abbe56e057f20f883e</CmdUserPwd>
+   </CmdXml>
+</XMLData>

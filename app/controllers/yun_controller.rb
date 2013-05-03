@@ -7,7 +7,7 @@ class YunController < ApplicationController
     #logger.debug name
     render_soap
   end
-  before_filter :dump_parameters,:remote_post,:except=>%(_generate_wsdl testaction)
+  before_filter :dump_parameters,:remote_post,:except=>[:_generate_wsdl, :testaction]
   private
   def encode_params args,from,to
     args.each do |k,v|
@@ -21,12 +21,13 @@ class YunController < ApplicationController
     render :soap => @xml_data
   end
   def remote_post
-    url = "http://www.ynshangji.com/apix/"
+    #next if %w(_generate_wsdl).include? action_name
+    url = "http://www.ynshangji.com/api/"
     args = encode_params(params,'utf-8','gbk')
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
-      #xml = File.read("#{Rails.root}/tmp/company_list.xml")
+      xml = File.read("#{Rails.root}/db/test/company_add.xml")
       @xml_data = Hash.from_xml(xml)["XMLData"]
     else
       logger.debug @response.inspect
