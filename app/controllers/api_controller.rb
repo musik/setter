@@ -23,7 +23,7 @@ class ApiController < ApplicationController
   end
   def remote_post
     #next if %w(_generate_wsdl).include? action_name
-    url = "http://www.ynshangji.com/api/"
+    url = "http://tz.ynshangji.com/api/"
     args = params
     xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"] rescue nil
     if xml_data.nil?
