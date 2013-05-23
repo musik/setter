@@ -9,5 +9,11 @@
 - BuySellList
 - BuySellDetails
 - BuySellDelete
+- NewsAdd
+- NewsDelete
+- NewsDetails
+- NewsList
+- NewsModify
+- NewsModifyStatus
 - WebChatAdd
 - WebChatModify
