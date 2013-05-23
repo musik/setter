@@ -25,7 +25,12 @@ class ApiController < ApplicationController
     #next if %w(_generate_wsdl).include? action_name
     url = "http://www.ynshangji.com/api/"
     args = params
-    args.merge! Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
+    xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
+    if xml_data.nil?
+      @xml_data = error_output(0,'xml_data can\'t be empty')
+      return
+    end
+    args.merge! xml_data
     logger.debug args
     args = encode_params(args,'utf-8','gbk')
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
