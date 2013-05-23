@@ -25,7 +25,7 @@ class ApiController < ApplicationController
     #next if %w(_generate_wsdl).include? action_name
     url = "http://www.ynshangji.com/api/"
     args = params
-    xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
+    xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"] rescue nil
     if xml_data.nil?
       @xml_data = error_output(0,'xml_data can\'t be empty')
       return
@@ -44,6 +44,6 @@ class ApiController < ApplicationController
     #logger.info @xml_data
   end
   def dump_parameters
-    Rails.logger.debug params.inspect
+    Rails.logger.info params.inspect
   end
 end
