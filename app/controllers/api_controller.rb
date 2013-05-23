@@ -32,12 +32,12 @@ class ApiController < ApplicationController
     end
     args.merge! xml_data
     logger.debug args
-    #begin
-      #args = encode_params(args,'utf-8','gbk')
-    #rescue Exception=>e
-      #@xml_data = error_output(0,e.message)
-      #return
-    #end
+    begin
+      args = encode_params(args,'utf-8','gbk')
+    rescue Exception=>e
+      @xml_data = error_output(0,e.message)
+      return
+    end
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
