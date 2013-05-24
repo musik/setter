@@ -25,17 +25,12 @@ class ApiController < ApplicationController
     #next if %w(_generate_wsdl).include? action_name
     url = "http://tz.ynshangji.com/api/"
     args = escaped_params
-    xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"] rescue nil
-    if xml_data.nil?
-      logger.info args
-      @xml_data = error_output(0,'xml_data can\'t be empty')
-      return
-    end
-    args.merge! xml_data
-    logger.debug args
     begin
+      xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
+      args.merge! xml_data
       args = encode_params(args,'utf-8','gbk')
     rescue Exception=>e
+      logger.info args
       @xml_data = error_output(0,e.message)
       return
     end
