@@ -24,7 +24,7 @@ class ApiController < ApplicationController
   def remote_post
     #next if %w(_generate_wsdl).include? action_name
     url = "http://tz.ynshangji.com/api/"
-    args = params
+    args = escaped_params
     xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"] rescue nil
     if xml_data.nil?
       @xml_data = error_output(0,'xml_data can\'t be empty')
@@ -39,16 +39,19 @@ class ApiController < ApplicationController
       return
     end
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
+    #logger.info @response.inspect
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
       @xml_data = xml 
     else
-      logger.debug @response.inspect
       @xml_data = error_output(@response.code,"请求失败 #{@response.curl_error_message}")
     end
     #logger.info @xml_data
   end
+  def escaped_params
+    @_escaped_params ||= request.params["Envelope"]["Body"].first[1]
+  end
   def dump_parameters
-    Rails.logger.info params.inspect
+    Rails.logger.debug params.inspect
   end
 end
