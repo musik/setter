@@ -27,6 +27,7 @@ class ApiController < ApplicationController
     args = escaped_params
     xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"] rescue nil
     if xml_data.nil?
+      logger.info args
       @xml_data = error_output(0,'xml_data can\'t be empty')
       return
     end
