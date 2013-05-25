@@ -1,0 +1,12 @@
+<XMLData>
+  <CmdState>1</CmdState>
+  <CmdErrorLevel></CmdErrorLevel>
+  <CmdTips></CmdTips>
+  <CmdXml>
+    <CmdCompanyID>1</CmdCompanyID>
+    <CmdCompanyUrl>http://test.ynshangji.com</CmdCompanyUrl>
+    <CmdUserID>1</CmdUserID>
+    <CmdUserName>test</CmdUserName>
+    <CmdUserPwd>password</CmdUserPwd>
+  </CmdXml>
+</XMLData>
