@@ -3,6 +3,7 @@
 - CompanyModifyStatus
 - CompanyList
 - CompanyDetails
+- CompanyDelete
 - BuySellAdd
 - BuySellModify
 - BuySellModifyStatus
