@@ -1,7 +1,7 @@
 <XMLData>
   <CmdState>1</CmdState>
-  <CmdErrorLevel></CmdErrorLevel>
-  <CmdTips></CmdTips>
+  <CmdErrorLevel>0</CmdErrorLevel>
+  <CmdTips>公司信息添加成功</CmdTips>
   <CmdXml>
     <CmdCompanyID>1</CmdCompanyID>
     <CmdCompanyUrl>http://test.ynshangji.com</CmdCompanyUrl>
