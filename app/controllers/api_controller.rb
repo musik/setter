@@ -38,7 +38,7 @@ class ApiController < ApplicationController
     #logger.info @response.inspect
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
-      xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml")
+      #xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml")
       @xml_data = xml 
     else
       @xml_data = error_output(@response.code,"请求失败 #{@response.curl_error_message}")
@@ -46,7 +46,7 @@ class ApiController < ApplicationController
     #logger.info @xml_data
   end
   def escaped_params
-    @_escaped_params ||= request.params["Envelope"]["Body"].first[1]
+    @_escaped_params ||= request.params["Envelope"]["Body"][action_name]
   end
   def dump_parameters
     Rails.logger.debug params.inspect
