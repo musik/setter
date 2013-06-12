@@ -2,6 +2,7 @@
 class ApiController < ApplicationController
   include WashOut::SOAP
   include ApiHelper
+  include ActionView::Helpers::SanitizeHelper
   #include WashOutExt
   WASHACTIONS.each do |name|
     soap_action name,
@@ -42,8 +43,9 @@ class ApiController < ApplicationController
     else
       message = @response.curl_error_message.sub('No error','')
       (message += @response.body.encode('utf-8','gbk')) unless @response.body.nil?
+      message = strip_tags(message)
       logger.debug message.inspect
-      @xml_data = error_output(@response.code,"返回码!=200.#{ERB::Util.html_escape message}")
+      @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
     end
     #logger.info @xml_data
   end
