@@ -35,13 +35,15 @@ class ApiController < ApplicationController
       return
     end
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
-    #logger.info @response.inspect
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
-      #xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml")
+      #xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml") rescue error_output(404,'此接口暂未配置')
       @xml_data = xml 
     else
-      @xml_data = error_output(@response.code,"请求失败 #{@response.curl_error_message}")
+      message = @response.curl_error_message.sub('No error','')
+      (message += @response.body.encode('utf-8','gbk')) unless @response.body.nil?
+      logger.debug message.inspect
+      @xml_data = error_output(@response.code,"返回码!=200.#{ERB::Util.html_escape message}")
     end
     #logger.info @xml_data
   end
