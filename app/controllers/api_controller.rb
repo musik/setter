@@ -46,6 +46,7 @@ class ApiController < ApplicationController
       (message += @response.body.encode('utf-8','gbk')) unless @response.body.nil?
       message = strip_tags(message)
       @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
+      logger.info @xml_data
     end
     #logger.info @xml_data
   end
