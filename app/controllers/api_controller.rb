@@ -22,9 +22,18 @@ class ApiController < ApplicationController
   def render_soap
     render :soap => @xml_data
   end
+  def parse_subdomain
+    sites = {
+      'ws'=>'tz.ynshangji.com',
+      'zs'=>'tz.zhaoshang100.com'
+    }
+    @url = sites.has_key?(request.subdomain) ? sites[request.subdomain] : sites['ws']
+  end
   def remote_post
+    parse_subdomain
     #next if %w(_generate_wsdl).include? action_name
-    url = "http://tz.ynshangji.com/api/"
+    url = "http://#{@url}/api/"
+    logger.debug url
     args = escaped_params
     begin
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
