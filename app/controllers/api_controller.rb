@@ -50,6 +50,9 @@ class ApiController < ApplicationController
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
       #xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml") rescue error_output(404,'此接口暂未配置')
       @xml_data = xml 
+      if @xml_data.match('strToken is wrong').present?
+        @xml_data = error_output(403,'strToken is wrong')
+      end
     else
       message = @response.curl_error_message.sub('No error','') rescue ''
       (message += @response.body.encode('utf-8','gbk')) unless @response.body.nil?
