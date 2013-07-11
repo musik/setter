@@ -9,6 +9,7 @@
 # Corrections? Improvements? Create a GitHub issue:
 # http://github.com/RailsApps/rails-composer/issues
 #----------------------------------------------------------------------------
+Gemfile.lock
 /etz
 # bundler state
 /.bundle
