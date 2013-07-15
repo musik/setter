@@ -44,7 +44,7 @@ class ApiController < ApplicationController
       return
     end
     #logger.debug args
-    @response = Typhoeus::Request.post "#{url}#{action_name}.asp?strToken=98fbb9a2bf7f7c8014f836c366019f84",:params=> args
+    @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
     logger.debug @response.inspect
     if @response.success?
       xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
