@@ -40,7 +40,8 @@ class ApiController < ApplicationController
     begin
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
-      args = encode_params(args,'utf-8','gbk') unless @debug
+      #args["bsContent"] = ERB::Util.html_escape(args["bsContent"]) if args.has_key?("bsContent")
+      args = encode_params(args,'utf-8','gbk')
       args["bsContent"] = CGI.escape(args["bsContent"]) if args.has_key?("bsContent")
     rescue Exception=>e
       @xml_data = error_output(0,e.message)
@@ -52,7 +53,7 @@ class ApiController < ApplicationController
     logger.debug @response.inspect
     if @response.success?
       @xml_data = @response.body
-      @xml_data = @xml_data.encode('utf-8','gbk').sub('gb2312','utf-8') unless @debug
+      @xml_data = @xml_data.encode('utf-8','gbk').sub('gb2312','utf-8')
       if @xml_data.match('strToken is wrong').present?
         @xml_data = error_output(403,'strToken is wrong')
       end

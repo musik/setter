@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ApiController do
   def args(xml,debug=true)
-    {:strToken=>'98fbb9a2bf7f7c8014f836c366019f84',:strXmlKeyValue=>xml}
+    {:strToken=>'98fbb9a2bf7f7c8014f836c366019f84',:strXmlKeyValue=>xml,:debug=>debug}
   end
 
   it "error_output" do
