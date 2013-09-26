@@ -162,6 +162,7 @@ GEM
       haml (>= 4.0.0.rc.1)
       hpricot (~> 0.8.6)
       ruby_parser (~> 3.1.1)
+    htmlentities (4.3.1)
     http_parser.rb (0.5.3)
     httpi (2.0.2)
       rack
@@ -378,6 +379,7 @@ DEPENDENCIES
   guard-rspec (>= 2.5.2)
   haml-rails (>= 0.4)
   html2haml (>= 1.0.1)
+  htmlentities
   hub (>= 1.10.2)
   jquery-rails
   launchy (>= 2.2.0)
