@@ -36,21 +36,23 @@ class ApiController < ApplicationController
     url = "http://#{@url}/api/"
     logger.debug url
     args = escaped_params
+    @debug = args.has_key? "debug"
     begin
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
-      args = encode_params(args,'utf-8','gbk')
+      args["bsContent"] = CGI.escape(args["bsContent"]) if args.has_key?("bsContent")
+      args = encode_params(args,'utf-8','gbk') unless @debug
     rescue Exception=>e
       @xml_data = error_output(0,e.message)
       return
     end
     logger.info args
-    @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
+    url = @debug ? "http://localhost" : "#{url}#{action_name}.asp"
+    @response = Typhoeus::Request.post url,:params=> args
     logger.debug @response.inspect
     if @response.success?
-      xml = @response.body.encode('utf-8','gbk').sub('gb2312','utf-8')
-      #xml = File.read("#{Rails.root}/db/test/#{action_name}Response.xml") rescue error_output(404,'此接口暂未配置')
-      @xml_data = xml 
+      @xml_data = @response.body
+      @xml_data = @xml_data.encode('utf-8','gbk').sub('gb2312','utf-8') unless @debug
       if @xml_data.match('strToken is wrong').present?
         @xml_data = error_output(403,'strToken is wrong')
       end
