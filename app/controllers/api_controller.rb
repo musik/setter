@@ -40,8 +40,8 @@ class ApiController < ApplicationController
     begin
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
-      args["bsContent"] = CGI.escape(args["bsContent"]) if args.has_key?("bsContent")
       args = encode_params(args,'utf-8','gbk') unless @debug
+      args["bsContent"] = CGI.escape(args["bsContent"]) if args.has_key?("bsContent")
     rescue Exception=>e
       @xml_data = error_output(0,e.message)
       return
