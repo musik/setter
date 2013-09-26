@@ -44,7 +44,7 @@ class ApiController < ApplicationController
       @xml_data = error_output(0,e.message)
       return
     end
-    #logger.debug args
+    logger.info args
     @response = Typhoeus::Request.post "#{url}#{action_name}.asp",:params=> args
     logger.debug @response.inspect
     if @response.success?
