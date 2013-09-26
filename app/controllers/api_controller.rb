@@ -41,10 +41,8 @@ class ApiController < ApplicationController
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
       args = encode_params(args,'utf-8','gbk')
-      if args.has_key?("bsContent")
-        #args["bsContent"] = HTMLEntities.new.decode(args["bsContent"]) 
-        #args["bsContent"] = ERB::Util.html_escape(args["bsContent"])
-        args["bsContent"] = CGI.escape(args["bsContent"])
+      %w(cpAbout bsContent nsContent).each do |k|
+        args[k] = CGI.escape(args[k]) if args.has_key?(k)
       end
     rescue Exception=>e
       @xml_data = error_output(0,e.message)
