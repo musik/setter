@@ -41,7 +41,7 @@ class ApiController < ApplicationController
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
       args = encode_params(args,'utf-8','gbk')
-      %w(cpAbout bsContent nsContent).each do |k|
+      %w(cpAbout bsContent nsContent wsSingleJS wsSingleIcons wsListJS).each do |k|
         args[k] = CGI.escape(args[k]) if args.has_key?(k)
       end
     rescue Exception=>e
