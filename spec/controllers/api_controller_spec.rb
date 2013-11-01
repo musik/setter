@@ -23,18 +23,18 @@ describe ApiController do
     xml = File.read("#{Rails.root}/db/test/buy_sell_add.xml")
     client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
     #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
-    #response = client.call(:buy_sell_add,message: args(xml))
-    #pp response.body#[:company_add_response][:cms_state]
-    #pp Hash.from_xml(response.to_hash[:buy_sell_add_response][:value]) rescue nil
+    response = client.call(:buy_sell_add,message: args(xml))
+    pp response.body#[:company_add_response][:cms_state]
+    pp Hash.from_xml(response.to_hash[:buy_sell_add_response][:value]) rescue nil
 
   end
   it "webchatadd" do
     xml = File.read("#{Rails.root}/db/test/web_chat_add.xml")
     client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
     #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
-    response = client.call(:web_chat_add,message: args(xml))
-    pp response.body#[:company_add_response][:cms_state]
-    pp Hash.from_xml(response.to_hash[:web_chat_add_response][:value]) rescue nil
+    #response = client.call(:web_chat_add,message: args(xml))
+    #pp response.body#[:company_add_response][:cms_state]
+    #pp Hash.from_xml(response.to_hash[:web_chat_add_response][:value]) rescue nil
 
   end
   it "company list" do
