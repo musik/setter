@@ -11,26 +11,24 @@ describe ApiController do
   end
   it "company_add" do
     #xml = File.read("#{Rails.root}/db/test/company_add_instance.xml").encode("UTF-8",'GBK')
-    xml = File.read("#{Rails.root}/db/test/company_add_instance.xml")
-    xml = File.read("#{Rails.root}/tmp/1.xml")
+    xml = File.read("#{Rails.root}/db/test/company_add_instance2_utf.xml")
     client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
-    #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
-    #response = client.call(:company_add,message: args(xml))
-    #pp response.body#[:company_add_response][:cms_state]
+    response = client.call(:company_add,message: args(xml,0))
+    pp response.body#[:company_add_response][:cms_state]
     #pp Hash.from_xml(response.to_hash[:company_add_response][:value])
   end
   it "buyselladd" do
-    xml = File.read("#{Rails.root}/db/test/buy_sell_add.xml")
-    client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
+    #xml = File.read("#{Rails.root}/db/test/buy_sell_add.xml")
+    #client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
     #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
-    response = client.call(:buy_sell_add,message: args(xml))
-    pp response.body#[:company_add_response][:cms_state]
-    pp Hash.from_xml(response.to_hash[:buy_sell_add_response][:value]) rescue nil
+    #response = client.call(:buy_sell_add,message: args(xml))
+    #pp response.body#[:company_add_response][:cms_state]
+    #pp Hash.from_xml(response.to_hash[:buy_sell_add_response][:value]) rescue nil
 
   end
   it "webchatadd" do
-    xml = File.read("#{Rails.root}/db/test/web_chat_add.xml")
-    client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
+    #xml = File.read("#{Rails.root}/db/test/web_chat_add.xml")
+    #client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
     #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
     #response = client.call(:web_chat_add,message: args(xml))
     #pp response.body#[:company_add_response][:cms_state]

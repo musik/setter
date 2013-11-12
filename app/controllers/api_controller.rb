@@ -16,7 +16,7 @@ class ApiController < ApplicationController
   private
   def encode_params args,from,to
     args.each do |k,v|
-      v.encode! to,from if v.is_a? String
+      v.encode! to,from,:invalid=>:replace,:undef=>:replace,:replace=>'?' if v.is_a? String
     end
   end
   def render_soap
@@ -36,7 +36,7 @@ class ApiController < ApplicationController
     url = "http://#{@url}/api/"
     logger.debug url
     args = escaped_params
-    @debug = args.has_key? "debug"
+    @debug = (args.has_key? "debug" and args["debug"] == "true")
     begin
       xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
       args.merge! xml_data
@@ -45,10 +45,11 @@ class ApiController < ApplicationController
         args[k] = CGI.escape(args[k]) if args.has_key?(k)
       end
     rescue Exception=>e
+      logger.info "Request not made"
       @xml_data = error_output(0,e.message)
       return
     end
-    logger.info args
+    logger.debug args
     url = @debug ? "http://localhost" : "#{url}#{action_name}.asp"
     @response = Typhoeus::Request.post url,:params=> args
     logger.debug @response.inspect
@@ -60,7 +61,7 @@ class ApiController < ApplicationController
       end
     else
       message = @response.curl_error_message.sub('No error','') rescue ''
-      (message += @response.body.encode('utf-8','gbk')) unless @response.body.nil?
+      (message += @response.body.encode('utf-8','gbk',:invalid=>:replace,:undef=>:replace,:replace=>'?')) unless @response.body.nil?
       message = strip_tags(message)
       @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
       logger.info @xml_data
