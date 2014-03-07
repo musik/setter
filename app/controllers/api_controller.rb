@@ -12,8 +12,16 @@ class ApiController < ApplicationController
   def action_missing name
     render_soap
   end
-  before_filter :dump_parameters,:remote_post,:except=>[:_generate_wsdl]
+  before_filter :dump_parameters,:remote_post,:async_post_to_ndrc,:except=>[:_generate_wsdl]
   private
+  def async_post_to_ndrc
+    action_maps = {
+      "CompanyAdd"=> "qiye",
+      #"BuySellAdd"=> "sell"
+    }
+    remote_action = action_maps[action_name]
+    Resque.enqueue(PostToNdrc,escaped_params) if remote_action.present?
+  end
   def encode_params args,from,to
     args.each do |k,v|
       v.encode! to,from if v.is_a? String
@@ -29,6 +37,41 @@ class ApiController < ApplicationController
     }
     @url = sites.has_key?(request.subdomain) ? sites[request.subdomain] : sites['ws']
     logger.info "SITE: #{@url}"
+  end
+  def post_to_ndrc
+    action_maps = {
+      "CompanyAdd"=> "qiye",
+      #"BuySellAdd"=> "sell"
+    }
+    remote_action = action_maps[action_name]
+    return if remote_action.nil?
+    args = escaped_params
+    @debug = args.has_key? "debug"
+    begin
+      xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
+      %w(cpAbout bsContent nsContent wsSingleJS wsSingleIcons wsListJS).each do |k|
+        xml_data[k] = CGI.escape(xml_data[k]) if xml_data.has_key?(k)
+      end
+      args[:data] =  xml_data
+    rescue Exception=>e
+      @xml_data = error_output(0,e.message)
+      return
+    end
+    logger.debug args
+    host = @debug ? "http://vcap.me:4001/" : "http://www.ndrc.ac.cn/"
+    @response = Typhoeus::Request.post(host + "qiye.json",:params=> args)
+    if @response.success?
+      @xml_data = @response.body
+      if @xml_data.match('strToken is wrong').present?
+        @xml_data = error_output(403,'strToken is wrong')
+      end
+    else
+      message = @response.curl_error_message.sub('No error','') rescue ''
+      message += @response.body unless @response.body.nil?
+      message = strip_tags(message)
+      @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
+      logger.info @xml_data
+    end
   end
   def remote_post
     parse_subdomain
@@ -49,9 +92,9 @@ class ApiController < ApplicationController
       return
     end
     logger.info args
-    url = @debug ? "http://localhost" : "#{url}#{action_name}.asp"
+    url = @debug ? "http://vcap.me:3000/test" : "#{url}#{action_name}.asp"
     @response = Typhoeus::Request.post url,:params=> args
-    logger.debug @response.inspect
+    logger.info @response.inspect
     if @response.success?
       @xml_data = @response.body
       @xml_data = @xml_data.encode('utf-8','gbk',:invalid=>:replace,:undef=>:replace,:replace=>'?').sub('gb2312','utf-8')
@@ -71,6 +114,6 @@ class ApiController < ApplicationController
     @_escaped_params ||= request.params["Envelope"]["Body"][action_name]
   end
   def dump_parameters
-    Rails.logger.debug params.inspect
+    #Rails.logger.debug params.inspect
   end
 end

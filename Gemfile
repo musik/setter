@@ -51,3 +51,9 @@ group :development do
   gem 'capistrano-unicorn',:git=>'git://github.com/sosedoff/capistrano-unicorn.git'
   gem 'capistrano-resque'
 end
+
+gem 'resque'
+gem "resque-async-method"
+gem 'resque-ensure-connected'
+gem 'resque-retry'
+gem 'resque-cleaner'
