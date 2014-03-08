@@ -17,12 +17,18 @@ class ApiController < ApplicationController
   def async_post_to_ndrc
     action_maps = {
       "CompanyAdd"=> "qiye",
-      #"BuySellAdd"=> "sell"
+      "BuySellAdd"=> "sell"
     }
     remote_action = action_maps[action_name]
+    return if remote_action.nil?
     @args = parse_args
+    @args[:remote_action] = remote_action
     logger.debug @args
-    Resque.enqueue(PostToNdrc,@args) if remote_action.present?
+    if @args["debug"] 
+      PostToNdrc.perform @args
+    else
+      Resque.enqueue(PostToNdrc,@args)
+    end
   end
   def render_soap
     render :soap => @xml_data

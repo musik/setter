@@ -18,14 +18,13 @@ describe ApiController do
     #xml = File.read("#{Rails.root}/tmp/1.xml")
     client = Savon.client :wsdl=>"http://localhost:2999/api/wsdl"
     #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
-    response = client.call(:company_add,message: args(xml))
+    #response = client.call(:company_add,message: args(xml))
     #pp response.body#[:company_add_response][:cms_state]
     #pp Hash.from_xml(response.to_hash[:company_add_response][:value])
   end
   it "buyselladd" do
-    #xml = File.read("#{Rails.root}/db/test/buy_sell_add.xml")
-    #client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
-    #client = Savon.client :wsdl=>"http://zs.ynlp.com/api/wsdl"
+    xml = File.read("#{Rails.root}/db/test/buy_sell_add2.xml")
+    client = Savon.client :wsdl=>"http://ws.lvh.me:2999/api/wsdl"
     #response = client.call(:buy_sell_add,message: args(xml))
     #pp response.body#[:company_add_response][:cms_state]
     #pp Hash.from_xml(response.to_hash[:buy_sell_add_response][:value]) rescue nil
