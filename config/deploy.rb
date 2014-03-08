@@ -102,7 +102,7 @@ require 'capistrano-resque'
 role :resque_worker, "gxr"
 role :resque_scheduler, "gxr"
 set :workers, { "ndrc" => 1 }
-before 'after:restart','resque:restart'
+after 'deploy:restart','resque:restart'
 
 require "bundler/capistrano"
 

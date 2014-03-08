@@ -20,7 +20,9 @@ class ApiController < ApplicationController
       #"BuySellAdd"=> "sell"
     }
     remote_action = action_maps[action_name]
-    Resque.enqueue(PostToNdrc,escaped_params) if remote_action.present?
+    @args = request.params["Envelope"]["Body"][action_name]
+    logger.debug @args
+    Resque.enqueue(PostToNdrc,@args) if remote_action.present?
   end
   def encode_params args,from,to
     args.each do |k,v|
@@ -38,63 +40,28 @@ class ApiController < ApplicationController
     @url = sites.has_key?(request.subdomain) ? sites[request.subdomain] : sites['ws']
     logger.info "SITE: #{@url}"
   end
-  def post_to_ndrc
-    action_maps = {
-      "CompanyAdd"=> "qiye",
-      #"BuySellAdd"=> "sell"
-    }
-    remote_action = action_maps[action_name]
-    return if remote_action.nil?
-    args = escaped_params
-    @debug = args.has_key? "debug"
-    begin
-      xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
-      %w(cpAbout bsContent nsContent wsSingleJS wsSingleIcons wsListJS).each do |k|
-        xml_data[k] = CGI.escape(xml_data[k]) if xml_data.has_key?(k)
-      end
-      args[:data] =  xml_data
-    rescue Exception=>e
-      @xml_data = error_output(0,e.message)
-      return
-    end
-    logger.debug args
-    host = @debug ? "http://vcap.me:4001/" : "http://www.ndrc.ac.cn/"
-    @response = Typhoeus::Request.post(host + "qiye.json",:params=> args)
-    if @response.success?
-      @xml_data = @response.body
-      if @xml_data.match('strToken is wrong').present?
-        @xml_data = error_output(403,'strToken is wrong')
-      end
-    else
-      message = @response.curl_error_message.sub('No error','') rescue ''
-      message += @response.body unless @response.body.nil?
-      message = strip_tags(message)
-      @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
-      logger.info @xml_data
-    end
-  end
   def remote_post
     parse_subdomain
     #next if %w(_generate_wsdl).include? action_name
     url = "http://#{@url}/api/"
     logger.debug url
-    args = escaped_params
-    @debug = (args.has_key? "debug" and args["debug"] == "true")
+    @args = escaped_params
+    @debug = (@args.has_key? "debug" and @args["debug"] == "true")
     begin
-      xml_data = Hash.from_xml(args.delete("strXmlKeyValue"))["XMLData"]
-      args.merge! xml_data
-      args = encode_params(args,'utf-8','gbk')
+      xml_data = Hash.from_xml(@args.delete("strXmlKeyValue"))["XMLData"]
+      @args.merge! xml_data
+      @args = encode_params(@args,'utf-8','gbk')
       %w(cpAbout bsContent nsContent wsSingleJS wsSingleIcons wsListJS).each do |k|
-        args[k] = CGI.escape(args[k]) if args.has_key?(k)
+        @args[k] = CGI.escape(@args[k]) if @args.has_key?(k)
       end
     rescue Exception=>e
       logger.info "Request not made"
       @xml_data = error_output(0,e.message)
       return
     end
-    logger.debug args
+    logger.debug @args
     url = @debug ? "http://vcap.me:3000/test" : "#{url}#{action_name}.asp"
-    @response = Typhoeus::Request.post url,:params=> args
+    @response = Typhoeus::Request.post url,:params=> @args
     logger.info @response.inspect
     if @response.success?
       @xml_data = @response.body
@@ -112,7 +79,7 @@ class ApiController < ApplicationController
     #logger.info @xml_data
   end
   def escaped_params
-    @_escaped_params ||= request.params["Envelope"]["Body"][action_name]
+    request.params["Envelope"]["Body"][action_name]
   end
   def dump_parameters
     #Rails.logger.debug params.inspect
