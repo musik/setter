@@ -20,14 +20,9 @@ class ApiController < ApplicationController
       #"BuySellAdd"=> "sell"
     }
     remote_action = action_maps[action_name]
-    @args = request.params["Envelope"]["Body"][action_name]
+    @args = parse_args
     logger.debug @args
     Resque.enqueue(PostToNdrc,@args) if remote_action.present?
-  end
-  def encode_params args,from,to
-    args.each do |k,v|
-      v.encode! to,from,:invalid=>:replace,:undef=>:replace,:replace=>'?' if v.is_a? String
-    end
   end
   def render_soap
     render :soap => @xml_data
@@ -45,24 +40,12 @@ class ApiController < ApplicationController
     #next if %w(_generate_wsdl).include? action_name
     url = "http://#{@url}/api/"
     logger.debug url
-    @args = escaped_params
-    @debug = (@args.has_key? "debug" and @args["debug"] == "true")
-    begin
-      xml_data = Hash.from_xml(@args.delete("strXmlKeyValue"))["XMLData"]
-      @args.merge! xml_data
-      @args = encode_params(@args,'utf-8','gbk')
-      %w(cpAbout bsContent nsContent wsSingleJS wsSingleIcons wsListJS).each do |k|
-        @args[k] = CGI.escape(@args[k]) if @args.has_key?(k)
-      end
-    rescue Exception=>e
-      logger.info "Request not made"
-      @xml_data = error_output(0,e.message)
-      return
-    end
+    @args = parse_args 'gbk'
+    @debug = (@args.key? "debug" and @args["debug"] == "true")
     logger.debug @args
     url = @debug ? "http://vcap.me:3000/test" : "#{url}#{action_name}.asp"
     @response = Typhoeus::Request.post url,:params=> @args
-    logger.info @response.inspect
+    logger.debug @response.inspect
     if @response.success?
       @xml_data = @response.body
       @xml_data = @xml_data.encode('utf-8','gbk',:invalid=>:replace,:undef=>:replace,:replace=>'?').sub('gb2312','utf-8')
@@ -74,7 +57,7 @@ class ApiController < ApplicationController
       (message += @response.body.encode('utf-8','gbk',:invalid=>:replace,:undef=>:replace,:replace=>'?')) unless @response.body.nil?
       message = strip_tags(message)
       @xml_data = error_output(@response.code,"返回码!=200.Error message:#{message}")
-      logger.info @xml_data
+      logger.debug @xml_data
     end
     #logger.info @xml_data
   end
