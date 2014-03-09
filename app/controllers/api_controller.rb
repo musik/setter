@@ -22,7 +22,7 @@ class ApiController < ApplicationController
     remote_action = action_maps[action_name]
     return if remote_action.nil?
     @args = parse_args
-    @args[:remote_action] = remote_action
+    @args["remote_action"] = remote_action
     logger.debug @args
     if @args["debug"] 
       PostToNdrc.perform @args

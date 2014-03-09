@@ -11,14 +11,14 @@ class PostToNdrc
     else
       nrgs={
         strToken: args.delete("strToken"),
-        remote_action: args.delete(:remote_action)
+        "remote_action"=> args.delete("remote_action")
       }
       nrgs[:data] = args
       args = nrgs
     end
     #pp ["in queue",args]
     host = @debug ? "http://localhost:4001/" : "http://www.ndrc.ac.cn/"
-    @response = Typhoeus::Request.post(host + args.delete(:remote_action) +".json",:params=> args)
+    @response = Typhoeus::Request.post(host + args.delete("remote_action") +".json",:params=> args)
     if @response.success?
       Rails.logger.info "ndrc posted;"
     else
