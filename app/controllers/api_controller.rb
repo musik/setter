@@ -23,6 +23,7 @@ class ApiController < ApplicationController
     return if remote_action.nil?
     @args = parse_args
     @args["remote_action"] = remote_action
+    @args["subdomain"] = request.subdomain
     logger.debug @args
     if @args["debug"] 
       PostToNdrc.perform @args

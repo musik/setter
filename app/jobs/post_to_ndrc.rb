@@ -11,7 +11,7 @@ class PostToNdrc
     else
       nrgs={
         strToken: args.delete("strToken"),
-        "remote_action"=> args.delete("remote_action")
+        "remote_action"=> args.delete("remote_action"),
       }
       nrgs[:data] = args
       args = nrgs
