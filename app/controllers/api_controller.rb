@@ -12,7 +12,8 @@ class ApiController < ApplicationController
   def action_missing name
     render_soap
   end
-  before_filter :dump_parameters,:remote_post,:async_post_to_ndrc,:except=>[:_generate_wsdl]
+  before_filter :dump_parameters,:remote_post,:except=>[:_generate_wsdl]
+  #before_filter :dump_parameters,:remote_post,:async_post_to_ndrc,:except=>[:_generate_wsdl]
   private
   def async_post_to_ndrc
     action_maps = {
