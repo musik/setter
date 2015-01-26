@@ -49,7 +49,7 @@ require 'recipes/application'
 set :nginx_remote_config,"/etc/nginx/sites-enabled/setter.conf"
 set :nginx_local_config, "./lib/templates/nginx.conf.erb"
 set :application_uses_ssl, false
-set :nginx_host_name,"zs.api.zhaoshang100.com ys.api.zhaoshang100.com"
+set :nginx_host_name,"ws.ynlp.com zs.ynlp.com zs.api.zhaoshang100.com ys.api.zhaoshang100.com"
 set :nginx_host_uniq,false
 #set :nginx_host_uniq,"www.jxjw.net"
 #set :nginx_host_alias,"jxjw.net"

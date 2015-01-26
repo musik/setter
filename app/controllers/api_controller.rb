@@ -37,10 +37,12 @@ class ApiController < ApplicationController
   end
   def parse_subdomain
     sites = {
+      'ys.api'=>'tz.ynshangji.com',
+      'zs.api'=>'tz.zhaoshang100.com',
       'ws'=>'tz.ynshangji.com',
       'zs'=>'tz.zhaoshang100.com'
     }
-    @url = sites.has_key?(request.subdomain) ? sites[request.subdomain] : sites['ws']
+    @url = sites.has_key?(request.subdomain) ? sites[request.subdomain] : sites['ys.api']
     logger.info "SITE: #{@url}"
   end
   def remote_post
