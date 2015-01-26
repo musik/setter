@@ -4,9 +4,9 @@ set :repository,  "git@github.com:musik/setter.git"
 set :scm, :git
 
 set :deploy_to, "/dat/www/setter"
-role :web, "gxr"                          # Your HTTP server, Apache/etc
-role :app, "gxr"                          # This may be the same as your `Web` server
-role :db,  "gxr", :primary => true # This is where Rails migrations will run
+role :web, "lxr"                          # Your HTTP server, Apache/etc
+role :app, "lxr"                          # This may be the same as your `Web` server
+role :db,  "lxr", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 set :user, "muzik"
 set :group, "muzik"
@@ -49,7 +49,7 @@ require 'recipes/application'
 set :nginx_remote_config,"/etc/nginx/sites-enabled/setter.conf"
 set :nginx_local_config, "./lib/templates/nginx.conf.erb"
 set :application_uses_ssl, false
-set :nginx_host_name,"ws.ynlp.com"
+set :nginx_host_name,"zs.api.zhaoshang100.com ys.api.zhaoshang100.com"
 set :nginx_host_uniq,false
 #set :nginx_host_uniq,"www.jxjw.net"
 #set :nginx_host_alias,"jxjw.net"
@@ -99,8 +99,8 @@ after 'deploy:restart', 'unicorn:restart' # app IS NOT preloaded
 #set :resque_service,'resque-sdmec'
 #require './lib/recipes/resque.rb'
 require 'capistrano-resque'
-role :resque_worker, "gxr"
-role :resque_scheduler, "gxr"
+role :resque_worker, "lxr"
+role :resque_scheduler, "lxr"
 set :workers, { "ndrc" => 1 }
 after 'deploy:restart','resque:restart'
 
